@@ -1,0 +1,20 @@
+
+<div>
+<script>
+$(document).ready(function(){
+    var postData = {
+        'csrfmiddlewaretoken': "{{ csrfmiddlewaretoken }}",
+        'feed_url': "{{ plugin.data.feed_url }}",
+        'custom_feed_title': "{{ plugin.data.custom_feed_title }}",
+        'show_feed_title': {% if plugin.data.show_feed_title %}1{% else %}0{% endif %},
+        'max_items': {{ plugin.data.max_items }},
+        'cache_for': {{ plugin.data.cache_for }}
+        };
+
+    $.post("{% url 'rss_reader.get_feed' plugin.layout_uid plugin.placeholder_uid plugin.uid %}", postData, function(data) {
+        $('#' + "{{ plugin.html_id }}" + ' .plugin-content-wrapper').html(data);
+        $('#' + "{{ plugin.html_id }}" + ' .plugin-content-wrapper').css({height: "100%"});
+    });
+});
+    </script>
+</div>

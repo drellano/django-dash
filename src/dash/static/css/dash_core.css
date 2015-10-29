@@ -1,0 +1,121 @@
+/* 
+    Document   : dash_core.css
+    Created on : Nov 24, 2013, 12:01:47 AM
+    Author     : Artur Barseghyan (artur.barseghyan@gmail.com)
+    Description:
+        `django-dash` core styles.
+*/
+
+
+/*
+    Styles for placeholder size are generated dynamically based on the custom settings of each placeholder.
+    Generic rules are defined here.
+*/
+
+/* Content of the placeholder shall not exceed the given dimensions. */
+.placeholder {
+    overflow: hidden;
+    margin: 50px;
+    padding: 0;
+}
+    /*
+        Each placeholder plugin is positioned absolutely. Dynamically generated CSS rules (you don't have to do
+        anything about it) make sure that each plugin is properly positioned. Empty cells are also positioned
+        absolutely.
+    */
+    .placeholder .empty-widget-cell,
+    .placeholder .plugin {
+        position: absolute;
+        overflow: hidden;
+        /*border-left: #ddd 1px solid;
+        border-right: #ddd 1px solid;
+        border-top: #ddd 1px solid;
+        border-bottom: #ddd 1px solid;*/
+        margin: 0;
+        padding: 0;
+        z-index: 1;
+        box-shadow: 0px 0px 0px 6px white inset;
+        background-color: #00449B;
+    }
+        /* `Add plugin widget` link for the empty widget cell. */
+        .placeholder .empty-widget-cell .add-plugin span {
+            z-index: 0;
+            display: block;
+            top: 50%; 
+            transform: translateY(-50%);
+            position: absolute;
+            width: 100%;
+            text-align: center;
+        }
+        .placeholder .empty-widget-cell .add-plugin:hover,
+		.placeholder .plugin .add-plugin:hover,
+        .placeholder .plugin .copy-plugin:hover,
+        .placeholder .plugin .edit-plugin:hover,
+        .placeholder .plugin .remove-plugin:hover,
+        .placeholder .plugin .swtich-right:hover,
+        .placeholder .plugin .switch-left:hover, {
+
+        }
+
+        /* `Remove plugin widget` link for the empty widget cell. */
+	    .placeholder .plugin .remove-plugin,
+        .placeholder .plugin .copy-plugin,
+        .placeholder .plugin .edit-plugin,
+        .placeholder .plugin .add-plugin {
+            position: absolute;
+            width: 100%;
+            right: 2px;
+            top: 2px;
+            text-align: right;
+            background-color: #fff;
+            z-index: 9999;
+        }
+        .placeholder .plugin .edit-plugin {
+            right: 20px;
+        }
+        .placeholder .plugin .copy-plugin {
+            right: 40px;
+        }
+	    .placeholder .plugin .remove-plugin {
+	        right: 60px;
+	    }
+	            
+        .placeholder .plugin .switch-right,
+        .placeholder .plugin .switch-left {
+            position: absolute;
+            width: 50%;
+            top: 2px;
+            z-index: 9999;
+        }
+	    .placeholder .plugin .switch-right {
+	        top: 50%;
+	        text-align: right;
+	        right: 10px;
+	    }
+	    .placeholder .plugin .switch-left {
+	        top: 50%;
+	        text-align: left;
+	        left: 10px;
+	        
+	    }
+	
+        /*
+            We don't have any margins or paddings between the plugin widgets. It's not really needed. Everything
+            you want to do can be done using the innner wrapper (plugin-content-wrapper).
+        */
+        .placeholder .plugin .plugin-content-wrapper {
+        	padding: 6px;
+        	box-shadow: 0px 0px 0px 6px white inset;
+        }
+
+        /* No crazy things with widgets. */
+        .placeholder .plugin h1,
+        .placeholder .plugin h2,
+        .placeholder .plugin h3,
+        .placeholder .plugin h4,
+        .placeholder .plugin h5 {
+            font-size: 16px;
+        }
+        .placeholder .plugin p {
+            margin: 0
+        }

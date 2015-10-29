@@ -1,0 +1,44 @@
+
+  .rickshaw_graph {
+    position: relative;
+    left: 0px;
+  }
+
+  .rickshaw_graph svg {
+    display: block;
+    overflow: hidden;
+    fill-opacity: 21.4;
+  }
+
+  .title, .value {
+    position: relative;
+    z-index: 99;
+  }
+  
+  .rickshaw_graph .y_ticks line {
+  	top: 5px;
+  	position: absolute;
+  }
+
+  .rickshaw_graph .x_tick .title {
+	position: absolute;
+	font-size: 12px;
+	font-family: Arial, sans-serif;
+	opacity: 0.5;
+	white-space: nowrap;
+	margin-left: 3px;
+	bottom: 1px;
+}
+  .rickshaw_graph .y_ticks text,
+  .rickshaw_graph .x_ticks_d3 text {
+      pointer-events: none;
+      opacity: 1;
+      font-size: 20px;
+      fill: #B3C7E1;
+      fill-opacity: 0.8;
+      font-family: Tahoma, sans-serif;
+  }
+
+  .domain {
+    display: none;
+  }

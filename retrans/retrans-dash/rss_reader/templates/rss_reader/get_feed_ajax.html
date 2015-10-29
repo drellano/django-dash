@@ -1,0 +1,94 @@
+{% load rss_read_tags %}
+    {% if show_feed_title and feed %}
+        <style>
+        
+			.title {
+	        	text-align: center; 
+	        	font-family: Tahoma, sans-serif;
+	        	color: white;
+	    	}
+	        
+			.description {
+	        	text-align: center; 
+	        	font-family: Tahoma, sans-serif;
+	        	color: #B2B4B4;
+	        	padding-top: 4px;
+	        }
+        
+	        h1#{{custom_feed_title|slugify}} {
+	            height: 10%;
+		        display: block;
+		        text-align: center;
+		        font-family:‘Arial’, Helvetica, sans-serif;
+		        font-size: 100%;
+		        margin: 10px 0px 10px 0px;
+		        color: #B2B4B4;
+	        }
+	        
+	        ul#{{custom_feed_title|slugify}} {
+	        	height: 80%;
+	        	margin: 0px 4px 0px 4px;
+	        	padding: 0.2em
+	        }
+        </style>
+
+        <h1 id="{{custom_feed_title|slugify}}">
+                {% if custom_feed_title %}
+                    {{ custom_feed_title }}
+                {% else %}
+                    {{ feed.channel.title }}
+                {% endif %}
+        </h1>
+    {% endif %}
+
+    {% if feed and feed.entries %}
+        <ul id = "{{custom_feed_title|slugify}}">
+            {% for entry in feed.entries|slice:max_feed_items %}
+                <div id = "{{entry.title|slugify}}" style="height:47.5%;">
+			         <div class="title"> 
+  						<span>           
+			            	{{ entry.title|striptags|safe|truncatechars:100}}
+			            </span>
+			         </div>
+			         <div class = "description">     
+			         	<span>       
+			            	{{ entry.description|striptags|safe|truncatechars:300}}
+			            </span>
+			         </div>
+                </div>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+<script>
+	 $(window).load(function(){
+		var {{custom_feed_title|remove_space}}_array = [];
+		var	counter_{{custom_feed_title|remove_space}} = 1;
+        {% for entry in feed.entries|slice:max_feed_items %}
+			{{custom_feed_title|remove_space}}_array.push("{{entry.title|slugify}}")
+			$('.title').textfill({
+				explicitHeight: $('#{{entry.title|slugify}}').height(),
+				explicitWidth: $('#{{entry.title|slugify}}').width(),
+				minFontPixels: 25,
+				maxFontPixels: 35,
+				});
+        	$('.description').textfill({
+        		maxFontPixels: 20,
+        		minFontPixels: 15,
+        		explicitWidth: $('#{{entry.title|slugify}}').width(),
+        		explicitHeight: $('#{{entry.title|slugify}}').height(),
+        	});
+			$('#{{entry.title|slugify}}').hide()
+		{%endfor%}
+		
+
+		$('#'+{{custom_feed_title|remove_space}}_array[0]).fadeIn(50).delay(30000).fadeOut(50)
+		setInterval(liSwitcher, 30100);
+		function liSwitcher(){
+			if (counter_{{custom_feed_title|remove_space}} == {{custom_feed_title|remove_space}}_array.length) {counter_{{custom_feed_title|remove_space}} = 0;};
+			$('#'+{{custom_feed_title|remove_space}}_array[counter_{{custom_feed_title|remove_space}}]).fadeIn(50).delay(30000).fadeOut(50)
+			counter_{{custom_feed_title|remove_space}} ++;;
+			}
+
+	});
+</script>

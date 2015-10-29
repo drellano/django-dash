@@ -1,0 +1,6 @@
+
+{% load staticfiles %}
+
+<div id="{{ plugin.html_id }}" style="width:{{ width }}px ;height: {{ height }}px; text-align: center;">
+<img src="{{ MEDIA_URL }}{{ plugin.data.image }}" style="{{plugin.data.sizing}}: contain; width: 90%; height: 85%; position: relative; top: 50%; transform: translateY(-50%);">
+</div>

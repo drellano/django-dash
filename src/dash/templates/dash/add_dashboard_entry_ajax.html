@@ -1,0 +1,33 @@
+{% load i18n %}
+<div class="generic-content-wrapper">
+    <div class="wrapper-bg"></div>
+    <div class="hero-unit-small">
+        <h2 class="content-title">{% blocktrans with plugin.name as plugin_name %}Add {{ plugin_name }} to Dashboard{% endblocktrans %}</h2>
+    </div>
+    <div class="content-body">
+        <form method="post" action="{{ request.path }}" enctype="multipart/form-data" class="form-horizontal">
+            {% csrf_token %}
+            <ul class="content-listing generic-form">
+                {% include layout.form_snippet_template_name %}
+             	{% if need_timer %}
+				    <li class ="entry">
+				    	<div class="label">
+				    		<label for="id_image">Enter Timer: <label>
+				    	</div>
+				    	<div class="field">
+				    		<input id="id_image" name="image" type="text">
+				    	</div>
+				    </li>
+				{% endif %}
+                <li class="buttons control-group">
+		            
+                    <div class="controls">
+                        <button type="submit" class="btn btn-primary">{% trans "Add" %}</button>
+                    </div>
+                </li>
+
+                {% include "dash/snippets/plugin_help_text.html" %}
+            </ul>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,118 @@
+{% load i18n dash_tags %}
+
+{% for cell_html_class, cell_position in widget_cells %}
+    <div class="empty-widget-cell {{ cell_html_class }}">
+        <a href="{% if workspace %}{% url 'dash.plugin_widgets' placeholder_uid=placeholder.uid workspace=workspace position=cell_position %}{% else %}{% url 'dash.plugin_widgets' placeholder_uid=placeholder.uid position=cell_position %}{% endif %}" class="add-plugin" title="{% trans 'Add widget' %}">
+            <span class="iconic icon-plus-sign icon-2x"></span>
+        </a>
+    </div>
+{% endfor %}
+
+{% for entry in dashboard_entries %}
+    {% if not entry in ignore %}
+        {% get_dash_plugin entry as plugin %}
+
+        <div id="{{ plugin.html_id }}" class="plugin {{ plugin.html_class }}">
+		    <a href="{% if workspace %}{% url 'dash.plugin_widgets' placeholder_uid=placeholder.uid workspace=workspace position=entry.position %}
+		        		{% else %}{% url 'dash.plugin_widgets' placeholder_uid=placeholder.uid position=entry.position%}
+		        		{% endif %}" class="add-plugin" title="{% trans 'Add additional widget' %}">
+				<span class="iconic icon-plus-sign"></span>
+			</a>
+            <a href="{% url 'dash.edit_dashboard_entry' entry.pk %}" class="edit-plugin" title="{% trans 'Edit widget' %}">
+                <span class="iconic icon-edit-sign"></span>
+            </a>
+            <a href="{% url 'dash.copy_dashboard_entry' entry.pk %}" class="copy-plugin" title="{% trans 'Copy widget' %}">
+                <span class="iconic icon-copy"></span>
+            </a>
+            <a href="{% url 'dash.delete_dashboard_entry' entry.pk %}" class="remove-plugin" title="{% trans 'Remove widget' %}">
+                <span class="iconic icon-remove-sign"></span>
+            </a>
+
+            <div class="plugin-content-wrapper">
+                {{ plugin.render }}
+            </div>
+
+        </div>
+    {% endif %}
+{% endfor %}
+
+{% for key,value in widget_switcher.items %}
+<li id = widgets_in_placeholder_{{key}} style="display:block;">
+	<script>var widget_{{key}}_id = []</script>
+	{% for entry in value %}
+	    {% get_dash_plugin entry as plugin %}
+	    <script>widget_{{key}}_id.push("{{plugin.html_id}}");console.log("{{entry}}")</script>
+	    
+		<div id="{{ plugin.html_id }}" class="plugin {{ plugin.html_class }}">
+			<a href="{% if workspace %}{% url 'dash.plugin_widgets' placeholder_uid=placeholder.uid workspace=workspace position=entry.position %}
+		        		{% else %}{% url 'dash.plugin_widgets' placeholder_uid=placeholder.uid position=entry.position%}
+		        		{% endif %}" class="add-plugin" title="{% trans 'Add additional widget' %}">
+				<span class="iconic icon-plus-sign"></span>
+			</a>
+            <a href="{% url 'dash.edit_dashboard_entry' entry.pk %}" class="edit-plugin" title="{% trans 'Edit widget' %}">
+                <span class="iconic icon-edit-sign"></span>
+            </a>
+            {% if 'WidgetSwitcher' not in plugin.html_class %}
+            <a href="{% url 'dash.copy_dashboard_entry' entry.pk %}" class="copy-plugin" title="{% trans 'Copy widget' %}">
+                <span class="iconic icon-copy"></span>
+            </a>
+            <a href="{% url 'dash.delete_dashboard_entry' entry.pk %}" class="remove-plugin" title="{% trans 'Remove widget' %}">
+                <span onClick="deleted_{{key}}()" class="iconic icon-remove-sign"></span>
+            </a>
+            {% endif %}
+
+	        <a id = {{plugin.html_id}}_right class="switch-right" title="Next">
+                <span onClick="next_{{key}}()" class="iconic icon-circle-arrow-right icon-4x"></span>
+            </a>
+            <a id = {{plugin.html_id}}_left class="switch-left" title="Previous">
+		        <span onClick="previous_{{key}}()" class="iconic icon-circle-arrow-left icon-4x"></span>
+		    </a>
+		    <div class="plugin-content-wrapper">
+		        {{ plugin.render }}
+		    </div> 
+		</div>
+	{% endfor %}
+	<script>
+		counter_{{key}} = 0;
+		for(i=1; i < widget_{{key}}_id.length; i++){
+			$('#'+widget_{{key}}_id[i]).hide()
+		}
+		
+		function deleted_{{key}}() {
+			if(widget_{{key}}_id.length == 3) {
+				setTimeout(function(){window.location.reload(true)}, 100)
+				}
+			else {
+			widget_{{key}}_id.splice( $.inArray(widget_{{key}}_id[counter_{{key}}], widget_{{key}}_id), 1)
+			next_{{key}}()
+			}
+		}
+
+	    function next_{{key}}() {
+	        if (counter_{{key}} < widget_{{key}}_id.length - 1) {
+	            $('#'+widget_{{key}}_id[counter_{{key}}]).zIndex(100).delay(349).fadeOut(1)
+	            counter_{{key}}++
+	            $('#'+widget_{{key}}_id[counter_{{key}}]).zIndex(200).animate({width: 'toggle'}, 350)
+	        }
+	        else {
+	            $('#'+widget_{{key}}_id[counter_{{key}}]).zIndex(100).delay(349).fadeOut(1)
+	            counter_{{key}} = 0
+	            $('#'+widget_{{key}}_id[counter_{{key}}]).zIndex(200).animate({width: 'toggle'}, 350)
+	            
+	        }
+	    } 
+		function previous_{{key}}() {
+		    if (counter_{{key}} > 0) {
+	            $('#'+widget_{{key}}_id[counter_{{key}}]).zIndex(100).delay(349).fadeOut(1)
+	            counter_{{key}}--
+	            $('#'+widget_{{key}}_id[counter_{{key}}]).zIndex(200).show("slide", {direction: "right"}, 350)
+	        }
+	        else {
+	            $('#'+widget_{{key}}_id[counter_{{key}}]).zIndex(100).delay(349).fadeOut(1)
+	            counter_{{key}} = widget_{{key}}_id.length - 1;
+	            $('#'+widget_{{key}}_id[counter_{{key}}]).zIndex(200).show("slide", {direction: "right"}, 350)
+	        }
+		}
+	</script>
+</li>
+{% endfor %}

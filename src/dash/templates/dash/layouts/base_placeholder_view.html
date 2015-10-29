@@ -1,0 +1,49 @@
+{% load dash_tags %}
+
+{% for entry in dashboard_entries %}
+	{% if not entry in ignore %}
+		{% get_dash_plugin entry as plugin %}
+		<div id="{{ plugin.html_id }}" class="plugin {{ plugin.html_class }}">
+			<div class="plugin-content-wrapper">
+				{{plugin.render}}
+			</div>
+		</div>
+	{% endif %}
+{% endfor %}
+
+{% for key,value in widget_switcher.items %}
+<li id = widgets_in_placeholder_{{key}} style="display:block">
+	<script>var widget_{{key}}_id = []</script>
+	{% for entry in value %}
+	    {% get_dash_plugin entry as plugin %}
+			{% if plugin.plugin_data.timer %}
+				<script>timer_{{key}} = {{plugin.plugin_data.timer}}*1000</script>
+			{% else %}
+				<script>widget_{{key}}_id.push("{{plugin.html_id}}")</script>
+				<div id="{{ plugin.html_id }}" class="plugin {{ plugin.html_class }}">
+					<div class="plugin-content-wrapper">
+						{{ plugin.render }}
+					</div>
+				</div>
+			{% endif %}
+	{% endfor %}
+	<script>
+	 $(window).load(function(){
+		counter_{{key}} = 0;
+		previous_{{key}} = widget_{{key}}_id.length-1;
+
+		for(i=1; i < widget_{{key}}_id.length; i++){
+			$('#'+widget_{{key}}_id[i]).hide()
+		}
+
+		setInterval(divSwitcher, timer_{{key}});
+		function divSwitcher(){
+			if (counter_{{key}} == widget_{{key}}_id.length) {counter_{{key}} = 0; previous_{{key}} = widget_{{key}}_id.length-1;};
+			$('#'+widget_{{key}}_id[counter_{{key}}]).fadeIn(250)
+			$('#'+widget_{{key}}_id[previous_{{key}}]).fadeOut(250)
+			counter_{{key}} ++; previous_{{key}} = counter_{{key}}-1;
+			}
+	});
+	</script>
+</li>
+{% endfor %}

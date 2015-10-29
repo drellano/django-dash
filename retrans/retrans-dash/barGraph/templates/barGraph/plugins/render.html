@@ -1,0 +1,100 @@
+
+<div id="bar_graph-{{ plugin.html_id }}"></div>
+	<div id="{{ plugin.html_id }}_x-axis"></div>
+	<div id="{{ plugin.html_id }}_title"> {{title}} </div>
+
+<style>
+	#bar_graph-{{ plugin.html_id }}{
+		position: relative;
+		display: block;
+	}
+	
+	#{{ plugin.html_id }}_title{
+		position: absolute;
+		top: 50%;
+		width: 100%;
+		text-align: center;
+		font-family: Tahoma, sans-serif;
+		font-size: 30px;
+		color: #B3C7E1;
+		z-index: 100;
+	}
+	
+	#{{ plugin.html_id }}_x-axis{
+		position: absolute;
+		display: block;
+		top: 87%;
+		width: 95%;
+		font-size: 20px;
+        color: #B3C7E1;
+        font-family: Tahoma, sans-serif;
+        text-indent: 30px;
+	}
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+<script>
+$(document).ready(function(){
+
+var data = {{data|safe}}
+
+var points = []
+var dates = []
+for (series in {{data}}){
+	points.push({{data}}[series].y)
+	dates.push(d3.time.format('%-m/%-d')(new Date({{data}}[series].x*1000)))
+	}
+
+var step = (Math.max.apply(Math,points))/5
+var tickValues = []
+var value = 0
+for (i = 0; i <= 5; i++) {
+	tickValues.push(Math.round(value))
+	value += step
+	}
+
+var graphOptions = {
+        element: document.querySelector("#bar_graph-{{ plugin.html_id }}"),
+        renderer: 'bar',
+        width: {{ width }},
+        height: {{ height }},
+        series: [{
+                color: '#5884BC',
+                data: data
+                }],
+        padding: {top: 0.08, right: 0.03, left: 0.0, bottom: 0.08},
+        min: -1,
+      };
+
+var graph = new Rickshaw.Graph( graphOptions );
+
+var yAxisOptions = {
+		graph: graph,
+		tickValues: tickValues,
+        tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
+	  };
+y_axis = new Rickshaw.Graph.Axis.Y(yAxisOptions);
+
+graph.render();
+
+
+//Rickshaw Graph is terrible so I made my own x-axis with jquery and html
+for (i = 0; i < dates.length; i++) {
+	$('#{{ plugin.html_id }}_x-axis').append(dates[i])
+	for(j = 0; j <= ({{width}}/dates.length-dates.length*10); j+=6.5) {
+		$('#{{ plugin.html_id }}_x-axis').append("&nbsp;")
+		}
+	}
+		
+/*var xAxisOptions = {
+		graph: graph,
+		//orientation: 'bottom',
+		//ticks: 3,
+		//tickFormat: function(d){return d3.time.format('%-m/%-d')(new Date(d*1000))},
+		//tickSpacing: 50,
+		//element: document.querySelector("#{{ plugin.html_id }}_x-axis"),
+      };*/	
+
+});
+</script>
+

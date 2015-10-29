@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+        <div id="bar_graph-{{ plugin.html_id }}" ></div>
+
+        <script type="text/javascript">
+        $(document).ready(function(){
+		var djData = {
+                date: {{data_date|safe}},
+    		open: {{data_open|safe}}
+            };
+            var spec = {
+                title: "{{ plugin.data.title }}",
+		dom: 'bar_graph-{{ plugin.html_id }}',
+                width: {{ width }} - 15,
+                height: {{ height }} -15,
+                layer: {
+                    data: polyjs.data(djData),
+                    type: 'bar',
+                    x: "bin(date, 'day')",
+            	    y: "open",
+		            color: { const: '#E03A3A' },
+		            fontsize: '32px'
+                },
+		guide: {
+                    x: {
+                        title: 'Date',
+			            position: "bottom",
+			            numticks: 3,
+			            color: 'white',
+			            fontsize: '32px'
+			
+                    },
+                    y: {
+                        min: 0,
+                        max: {{data_open|safe}}.max,
+			            renderGrid: false,
+			            position: "left",
+                    }
+                },
+            }
+            polyjs.chart(spec);
+        });
+    </script>
+    
+<!--
+{"data_date": "['2015-06-22', '2015-06-23', '2015-06-24']", "data_open": "['1119', '1952', '1250']", "title": "SECOND", "timer": "5000"}
+--->
+	            del_payload = {'data_date': '[%r, %r, %r]' % (dayBefore, yesterday, today),
+                           'data_open': '[%r, %r, %r]' % (str(delivered['dayBefore']), str(delivered['yesterday']), str(delivered['today'])),
+                           'title': "it worked!!! much impress so amaze WOW"}
+</html>
+

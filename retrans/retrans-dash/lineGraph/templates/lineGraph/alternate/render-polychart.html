@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <span id="line_graph-{{ plugin.html_id }}" ></span>
+        <script type="text/javascript">
+        $(document).ready(function(){
+		 /*var djData = {
+                Date: {{data_date|safe}},
+    		Open: {{data_open|safe}}
+            };*/
+            var djData = {
+   				'Date': ['12/4/2012', '12/5/2012', '12/6/2012'],
+   				'Open': ['12966.45', '12948.96', '13026.19']
+ 				}
+		var polyjsdata = polyjs.data(djData)
+		var spec = {
+		    title: "Dow Jones Daily Opening Values",
+		    dom: 'line_graph-{{ plugin.html_id }}',
+		    width: {{ width }} - 15,
+                    height: {{ height }} -15,
+		    layer: {
+			data: polyjsdata,
+			type: 'line',
+			x: 'Date',
+			y: 'Open',
+			size: {'const': 3}
+		    },
+		    guide: {
+			x: {
+			    numticks: 10
+			},
+			y: {
+			    min: 12000,
+			    max: 15000
+			}
+		    },
+		}
+		polyjs.chart(spec);
+        });
+    </script>
+</body>
+</html>
+

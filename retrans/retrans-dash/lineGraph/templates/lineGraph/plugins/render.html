@@ -1,0 +1,91 @@
+
+
+<div id="bar_graph-{{ plugin.html_id }}"></div>
+	<div id="{{ plugin.html_id }}_x-axis"></div>
+	<div id="{{ plugin.html_id }}_title"> {{ title }}</div>
+	<div id="{{ plugin.html_id }}_max"></div>
+
+<style>
+
+	#bar_graph-{{ plugin.html_id }}{
+		position: relative;
+		display: block;
+	}
+	
+	#{{ plugin.html_id }}_title{
+		position: absolute;
+		top: 25%;
+		width: 100%;
+		text-align: center;
+		font-family: Tahoma, sans-serif;
+		font-size: 30px;
+		color: #B3C7E1;
+		z-index: 100;
+	}
+	
+	#{{ plugin.html_id }}_max{
+		position: absolute;
+		top: 40%;
+		width: 100%;
+		text-align: center;
+		font-family: Tahoma, sans-serif;
+		font-size: 80px;
+		font-weight: bold;
+		color: white;
+		z-index: 100;
+	}
+	
+	#{{ plugin.html_id }}_x-axis{
+		position: absolute;
+		top: 87%;
+		left: 50px;
+		width: 95%;
+	}
+	
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+<script>
+$(document).ready(function(){
+
+var data = {{data|safe}}
+
+$('#{{ plugin.html_id }}_max').text(data[2].y)
+
+
+var graphOptions = {
+        element: document.querySelector("#bar_graph-{{ plugin.html_id }}"),
+        renderer: 'line',
+        width: {{ width }},
+        height: {{ height }},
+        series: [{
+                color: '#5884BC',
+                data: data
+                }],
+        padding: {top: 0.70, right: 0.23, bottom: 0.08},
+      };
+
+var graph = new Rickshaw.Graph( graphOptions );
+
+var xAxisOptions = {
+		graph: graph,
+		orientation: 'bottom',
+		pixelsPerTick: 100,
+		ticks: 2,
+		tickFormat: function(d){return d3.time.format('%B')(new Date(d*1000))},
+		element: document.querySelector("#{{ plugin.html_id }}_x-axis"),
+      };	
+var yAxisOptions = {
+		graph: graph,
+        tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
+	  };
+
+x_axis = new Rickshaw.Graph.Axis.X(xAxisOptions);
+y_axis = new Rickshaw.Graph.Axis.Y(yAxisOptions);
+
+
+graph.render();
+
+});
+</script>
+
