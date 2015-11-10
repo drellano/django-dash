@@ -8277,3 +8277,141 @@ Traceback (most recent call last):
   File "/home/david/Environments/dash/django-dash-stable/retrans/retrans-dash/imageLocal/dash_widgets.py", line 26, in render
     'image': self.plugin.image,
 AttributeError: 'Plugin' object has no attribute 'image'
+ERROR 2015-11-10 11:04:00,483 [/home/david/Environments/dash/local/lib/python2.7/site-packages/django/core/handlers/base.py:224] Internal Server Error: /en/dashboard/plugin-widgets/main/pos/1/
+Traceback (most recent call last):
+  File "/home/david/Environments/dash/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 112, in get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/david/Environments/dash/local/lib/python2.7/site-packages/django/contrib/auth/decorators.py", line 22, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/home/david/Environments/dash/local/lib/python2.7/site-packages/django/contrib/auth/decorators.py", line 22, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/home/david/Environments/dash/django-dash-stable/src/dash/views.py", line 632, in plugin_widgets
+    occupied_cells = occupied_cells
+  File "/home/david/Environments/dash/django-dash-stable/src/dash/utils.py", line 181, in get_widgets
+    if plugin_widget.row == 6 and plugin_widget.cols == 8:
+AttributeError: type object 'Widget' has no attribute 'row'
+ERROR 2015-11-10 11:06:54,325 [/home/david/Environments/dash/local/lib/python2.7/site-packages/django/core/handlers/base.py:224] Internal Server Error: /en/dashboard/plugin-widgets/main/pos/1/
+Traceback (most recent call last):
+  File "/home/david/Environments/dash/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 112, in get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/david/Environments/dash/local/lib/python2.7/site-packages/django/contrib/auth/decorators.py", line 22, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/home/david/Environments/dash/local/lib/python2.7/site-packages/django/contrib/auth/decorators.py", line 22, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/home/david/Environments/dash/django-dash-stable/src/dash/views.py", line 632, in plugin_widgets
+    occupied_cells = occupied_cells
+  File "/home/david/Environments/dash/django-dash-stable/src/dash/utils.py", line 183, in get_widgets
+    layout_uid=layout.uid, workspace_id=workspace_id,)
+  File "/home/david/Environments/dash/local/lib/python2.7/site-packages/django/db/models/manager.py", line 151, in get
+    return self.get_queryset().get(*args, **kwargs)
+  File "/home/david/Environments/dash/local/lib/python2.7/site-packages/django/db/models/query.py", line 313, in get
+    (self.model._meta.object_name, num))
+MultipleObjectsReturned: get() returned more than one DashboardEntry -- it returned 5!
+ERROR 2015-11-10 11:07:10,065 [/home/david/Environments/dash/local/lib/python2.7/site-packages/django/core/handlers/base.py:224] Internal Server Error: /en/dashboard/plugin-widgets/main/pos/1/
+Traceback (most recent call last):
+  File "/home/david/Environments/dash/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 112, in get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/david/Environments/dash/local/lib/python2.7/site-packages/django/contrib/auth/decorators.py", line 22, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/home/david/Environments/dash/local/lib/python2.7/site-packages/django/contrib/auth/decorators.py", line 22, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/home/david/Environments/dash/django-dash-stable/src/dash/views.py", line 632, in plugin_widgets
+    occupied_cells = occupied_cells
+  File "/home/david/Environments/dash/django-dash-stable/src/dash/utils.py", line 184, in get_widgets
+    layout_uid=layout.uid, workspace_id=workspace_id,)
+  File "/home/david/Environments/dash/local/lib/python2.7/site-packages/django/db/models/manager.py", line 151, in get
+    return self.get_queryset().get(*args, **kwargs)
+  File "/home/david/Environments/dash/local/lib/python2.7/site-packages/django/db/models/query.py", line 313, in get
+    (self.model._meta.object_name, num))
+MultipleObjectsReturned: get() returned more than one DashboardEntry -- it returned 5!
+ERROR 2015-11-10 11:11:56,845 [/home/david/Environments/dash/local/lib/python2.7/site-packages/django/core/handlers/base.py:224] Internal Server Error: /en/dashboard/plugin-widgets/main/pos/1/
+Traceback (most recent call last):
+  File "/home/david/Environments/dash/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 112, in get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/david/Environments/dash/local/lib/python2.7/site-packages/django/contrib/auth/decorators.py", line 22, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/home/david/Environments/dash/local/lib/python2.7/site-packages/django/contrib/auth/decorators.py", line 22, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/home/david/Environments/dash/django-dash-stable/src/dash/views.py", line 632, in plugin_widgets
+    occupied_cells = occupied_cells
+  File "/home/david/Environments/dash/django-dash-stable/src/dash/utils.py", line 183, in get_widgets
+    layout_uid=layout.uid, workspace_id=workspace_id,)[0].get()
+AttributeError: 'DashboardEntry' object has no attribute 'get'
+ERROR 2015-11-10 11:19:09,495 [/home/david/Environments/dash/local/lib/python2.7/site-packages/django/core/handlers/base.py:224] Internal Server Error: /en/dashboard/plugin-widgets/main/pos/1/
+Traceback (most recent call last):
+  File "/home/david/Environments/dash/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 112, in get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/david/Environments/dash/local/lib/python2.7/site-packages/django/contrib/auth/decorators.py", line 22, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/home/david/Environments/dash/local/lib/python2.7/site-packages/django/contrib/auth/decorators.py", line 22, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/home/david/Environments/dash/django-dash-stable/src/dash/views.py", line 632, in plugin_widgets
+    occupied_cells = occupied_cells
+  File "/home/david/Environments/dash/django-dash-stable/src/dash/utils.py", line 185, in get_widgets
+    print test.get_height()
+AttributeError: 'DashboardEntry' object has no attribute 'get_height'
+ERROR 2015-11-10 11:22:34,011 [/home/david/Environments/dash/local/lib/python2.7/site-packages/django/core/handlers/base.py:224] Internal Server Error: /en/dashboard/plugin-widgets/main/pos/1/
+Traceback (most recent call last):
+  File "/home/david/Environments/dash/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 112, in get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/david/Environments/dash/local/lib/python2.7/site-packages/django/contrib/auth/decorators.py", line 22, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/home/david/Environments/dash/local/lib/python2.7/site-packages/django/contrib/auth/decorators.py", line 22, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/home/david/Environments/dash/django-dash-stable/src/dash/views.py", line 632, in plugin_widgets
+    occupied_cells = occupied_cells
+  File "/home/david/Environments/dash/django-dash-stable/src/dash/utils.py", line 184, in get_widgets
+    a = DashboardPlugin.object.filter(plugin_uid=test.plugin_uid)[0]
+AttributeError: type object 'DashboardPlugin' has no attribute 'object'
+ERROR 2015-11-10 11:24:08,894 [/home/david/Environments/dash/local/lib/python2.7/site-packages/django/core/handlers/base.py:224] Internal Server Error: /en/dashboard/plugin-widgets/main/pos/1/
+Traceback (most recent call last):
+  File "/home/david/Environments/dash/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 112, in get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/david/Environments/dash/local/lib/python2.7/site-packages/django/contrib/auth/decorators.py", line 22, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/home/david/Environments/dash/local/lib/python2.7/site-packages/django/contrib/auth/decorators.py", line 22, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/home/david/Environments/dash/django-dash-stable/src/dash/views.py", line 632, in plugin_widgets
+    occupied_cells = occupied_cells
+  File "/home/david/Environments/dash/django-dash-stable/src/dash/utils.py", line 185, in get_widgets
+    print a.get_height()
+AttributeError: 'DashboardPlugin' object has no attribute 'get_height'
+ERROR 2015-11-10 11:31:32,773 [/home/david/Environments/dash/local/lib/python2.7/site-packages/django/core/handlers/base.py:224] Internal Server Error: /en/dashboard/plugin-widgets/main/pos/1/
+Traceback (most recent call last):
+  File "/home/david/Environments/dash/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 112, in get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/david/Environments/dash/local/lib/python2.7/site-packages/django/contrib/auth/decorators.py", line 22, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/home/david/Environments/dash/local/lib/python2.7/site-packages/django/contrib/auth/decorators.py", line 22, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/home/david/Environments/dash/django-dash-stable/src/dash/views.py", line 632, in plugin_widgets
+    occupied_cells = occupied_cells
+  File "/home/david/Environments/dash/django-dash-stable/src/dash/utils.py", line 192, in get_widgets
+    if plugin_widget.row == dimensions[0] and plugin_widget.cols == dimensions[1]:
+AttributeError: type object 'Widget' has no attribute 'row'
+ERROR 2015-11-10 11:32:04,178 [/home/david/Environments/dash/local/lib/python2.7/site-packages/django/core/handlers/base.py:224] Internal Server Error: /en/dashboard/plugin-widgets/main/pos/1/
+Traceback (most recent call last):
+  File "/home/david/Environments/dash/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 112, in get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/david/Environments/dash/local/lib/python2.7/site-packages/django/contrib/auth/decorators.py", line 22, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/home/david/Environments/dash/local/lib/python2.7/site-packages/django/contrib/auth/decorators.py", line 22, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/home/david/Environments/dash/django-dash-stable/src/dash/views.py", line 632, in plugin_widgets
+    occupied_cells = occupied_cells
+  File "/home/david/Environments/dash/django-dash-stable/src/dash/utils.py", line 192, in get_widgets
+    if plugin_widget.row == int(dimensions[0]) and plugin_widget.cols == int(dimensions[1]):
+AttributeError: type object 'Widget' has no attribute 'row'
+ERROR 2015-11-10 11:32:24,952 [/home/david/Environments/dash/local/lib/python2.7/site-packages/django/core/handlers/base.py:224] Internal Server Error: /en/dashboard/plugin-widgets/main/pos/1/
+Traceback (most recent call last):
+  File "/home/david/Environments/dash/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 112, in get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/david/Environments/dash/local/lib/python2.7/site-packages/django/contrib/auth/decorators.py", line 22, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/home/david/Environments/dash/local/lib/python2.7/site-packages/django/contrib/auth/decorators.py", line 22, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/home/david/Environments/dash/django-dash-stable/src/dash/views.py", line 632, in plugin_widgets
+    occupied_cells = occupied_cells
+  File "/home/david/Environments/dash/django-dash-stable/src/dash/utils.py", line 192, in get_widgets
+    if int(plugin_widget.row) == int(dimensions[0]) and int(plugin_widget.cols) == int(dimensions[1]):
+AttributeError: type object 'Widget' has no attribute 'row'

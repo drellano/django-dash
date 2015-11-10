@@ -42,7 +42,7 @@ var points = []
 var dates = []
 for (series in {{data}}){
 	points.push({{data}}[series].y)
-	dates.push(d3.time.format('%-m/%-d')(new Date({{data}}[series].x*1000)))
+	dates.push(d3.time.format('%-m/%-d')(new Date(({{data}}[series].x+21600)*1000)))
 	}
 
 var step = (Math.max.apply(Math,points))/5

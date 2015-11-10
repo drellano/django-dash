@@ -31,6 +31,8 @@ from dash.helpers import (
 from dash.exceptions import PluginWidgetOutOfPlaceholderBoundaries
 from dash.settings import RESTRICT_PLUGIN_ACCESS, DEBUG
 
+import re
+
 import logging
 logger = logging.getLogger(__name__)
 
@@ -170,7 +172,47 @@ def get_widgets(layout, placeholder, user=None, workspace=None, \
                                                plugin_widget.rows),
                         reverse('dash.add_dashboard_entry', kwargs=kwargs)
                     )
-                    )
+                                                        )
+
+            elif plugin_widget_uid in plugin_widget_uids and widget_occupied_cells is not False \
+                 and lists_overlap(widget_occupied_cells, occupied_cells):
+
+                workspace_id = None
+                if workspace:
+                    workspace_id = DashboardWorkspace.objects.get(name=workspace).pk
+
+                current_widget = DashboardEntry.objects.filter(position=int(position),
+                                                     layout_uid=layout.uid, workspace_id=workspace_id,)[0]
+                pattern = re.compile(r'\d+x\d+')
+                dimensions = pattern.search(str(current_widget.plugin_uid))
+                dimensions = (dimensions.group()).split('x')
+
+                plugin_widget = plugin_widget_registry.get(plugin_widget_uid)
+
+                if int(plugin_widget.cols) == int(dimensions[0]) and int(plugin_widget.rows) == int(dimensions[1]):
+
+                    kwargs = {'placeholder_uid': placeholder.uid, 'plugin_uid': uid}
+                    if workspace:
+                        kwargs.update({'workspace': workspace})
+                    if position:
+                        kwargs.update({'position': position})
+
+                    plugin_group = safe_text(plugin.group)
+                    if plugin_group not in registered_widgets:
+                        registered_widgets[plugin_group] = []
+
+                    widget_name = safe_text(plugin.name)
+
+                    registered_widgets[plugin_group].append(
+                        (
+                            uid,
+                            '{0} ({1}x{2})'.format(widget_name, \
+                                                   plugin_widget.cols, \
+                                                   plugin_widget.rows),
+                            reverse('dash.add_dashboard_entry', kwargs=kwargs)
+                        )
+                                                         )
+
     else:
         allowed_plugin_uids = get_allowed_plugin_uids(user)
 

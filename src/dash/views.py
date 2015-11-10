@@ -615,12 +615,6 @@ def plugin_widgets(request, placeholder_uid, workspace=None, position=None, \
                                 dashboard_entry.plugin_uid,
                                 dashboard_entry.position
                                 )
-        limited_cells = []
-        for row in range(0, placeholder.rows):
-            for col in range(0, placeholder.cols):
-                cell_num = int(position) + col + (row * placeholder.cols)
-                if cell_num not in occupied_cells:
-                    limited_cells.append(cell_num)
 
         context = {
             'layout': layout,
@@ -630,7 +624,7 @@ def plugin_widgets(request, placeholder_uid, workspace=None, position=None, \
                 request.user,
                 workspace = workspace,
                 position = position,
-                occupied_cells = limited_cells
+                occupied_cells = occupied_cells
                 ),
             'dashboard_settings': dashboard_settings,
             'paste_from_clipboard_url': paste_from_clipboard_url,
