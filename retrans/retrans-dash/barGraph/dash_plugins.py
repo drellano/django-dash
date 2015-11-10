@@ -16,8 +16,9 @@ class BaseBarGraphPlugin(BaseDashboardPlugin):
     group = _("Charts")
     form = BarGraphForm
     
-    #def update_plugin_data(self, dashboard_entry):
-    #    return graph(self)
+    def update_plugin_data(self, dashboard_entry):
+        return update_graph(self)
+
 # ********************************************************************************
 # ********** Generating and registering the plugins using factory ****************
 # ********************************************************************************

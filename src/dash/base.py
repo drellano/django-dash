@@ -1171,7 +1171,6 @@ class BaseDashboardPlugin(object):
                 plugin_data = plugin_data
                 )
         except Exception as e:
-
             logging.debug(str(e))
 
     def update_plugin_data(self, dashboard_entry):

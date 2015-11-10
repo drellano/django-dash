@@ -13,7 +13,7 @@ def update_fuel_table(self):
     page = requests.get('http://www.eia.gov/petroleum/gasdiesel/')
     tree = html.fromstring(page.text)
     
-    headers = {'username': 'test_admin', 'password': 'test'}
+    #headers = {'username': 'test_admin', 'password': 'test'}
     dates = []
     prices = []
     
