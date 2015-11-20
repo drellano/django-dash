@@ -1,16 +1,3 @@
-
-__title__ = 'dash.views'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = (
-    'dashboard', 'edit_dashboard', 'plugin_widgets',
-    'add_dashboard_entry', 'edit_dashboard_entry', 'delete_dashboard_entry',
-    'create_dashboard_workspace', 'edit_dashboard_workspace',
-    'delete_dashboard_workspace', 'dashboard_workspaces',
-    'edit_dashboard_settings', 'clone_dashboard_workspace',
-    'cut_dashboard_entry', 'copy_dashboard_entry', 'paste_dashboard_entry',
-    )
 from django.http import Http404, HttpResponse
 from django.template import RequestContext
 from django.core.exceptions import ObjectDoesNotExist
@@ -21,6 +8,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate, login
 from django.views.decorators.csrf import csrf_exempt
+from django.core.management import call_command
 
 from dash.json_package import json
 from dash.base import (
@@ -47,7 +35,7 @@ from dash.clipboard import (
 from dash.settings import RAISE_EXCEPTION_WHEN_PERMISSIONS_INSUFFICIENT
 from pprint import pprint
 import re
-
+import urllib
 # ***************************************************************************
 # ***************************************************************************
 # **************************** Dashboard views ******************************
@@ -1098,3 +1086,31 @@ def paste_dashboard_entry(request, placeholder_uid, position, workspace=None):
         return redirect('dash.edit_dashboard', workspace=workspace)
     else:
         return redirect('dash.edit_dashboard')
+
+
+def update_plugins(request):
+    print request.META['HTTP_REFERER']
+    #call_command('dash_update_plugin_data')
+    return HttpResponse('success')
+
+
+def get_plugin_data(request, layout_uid, workspace):
+    try:
+        dashboard_settings = DashboardSettings.objects.get(layout_uid=layout_uid)
+        user_id = dashboard_settings.user_id
+        workspace_id = None
+        if workspace != "None":
+            workspace_obj = DashboardWorkspace._default_manager.get(
+                                slug=workspace,
+                                user=user_id,
+                                layout_uid=layout_uid
+                                )
+            workspace_id = workspace_obj.id
+        data = (request.GET).dict()
+        title = data["data"]
+        obj = DashboardEntry.objects.get(plugin_data__contains=title,
+                                         layout_uid=layout_uid, workspace_id=workspace_id)
+
+    except ObjectDoesNotExist as e:
+        return HttpResponse(str(e))
+    return HttpResponse(obj.plugin_data)

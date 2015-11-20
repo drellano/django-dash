@@ -30,6 +30,14 @@ urlpatterns = patterns('dash.views',
         name='dash.edit_widget_data'),
     url(r'^edit/widget/(?P<layout_uid>[\w_]+)/$', view='edit_widget_data', \
         name='dash.edit_widget_data'),
+                       
+    # Update all plugins
+    url(r'^update_plugins', view='update_plugins', name='update_plugins'),
+    # Get new plugin data
+    url(r'^get/plugin/(?P<layout_uid>[\w_]+)/(?P<workspace>[\w_\-]+)/$', view='get_plugin_data', \
+        name='dash.edit_widget_data'),
+    url(r'^get/plugin/(?P<layout_uid>[\w_]+)/$', view='get_plugin_data', \
+        name='dash.get_plugin_data'),
 
     # Edit dashboard entry
     url(r'^entry/edit/(?P<entry_id>\d+)/$', view='edit_dashboard_entry', \

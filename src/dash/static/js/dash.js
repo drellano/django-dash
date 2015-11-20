@@ -7,6 +7,7 @@
 */
 ;
 $(document).ready(function() {
+
     var onLightboxOpen = function() {
         $('.submenu').hide();
     };

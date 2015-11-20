@@ -44,51 +44,58 @@
     {% if feed and feed.entries %}
         <ul id = "{{custom_feed_title|slugify}}">
             {% for entry in feed.entries|slice:max_feed_items %}
-                <div id = "{{entry.title|slugify}}" style="height:47.5%;">
-			         <div class="title"> 
+                <div class="title" id = "{{entry.title|slugify}}" style="height:57.5%;">
   						<span>           
 			            	{{ entry.title|striptags|safe|truncatechars:100}}
 			            </span>
-			         </div>
-			         <div class = "description">     
+			    </div>
+			    <div class="description" id = "{{entry.title|slugify}}_text" style="height:37.5%;">     
 			         	<span>       
 			            	{{ entry.description|striptags|safe|truncatechars:300}}
 			            </span>
-			         </div>
-                </div>
+			    </div>
             {% endfor %}
         </ul>
     {% endif %}
 
 <script>
 	 $(window).load(function(){
-		var {{custom_feed_title|remove_space}}_array = [];
+		var {{custom_feed_title|remove_space}}_title_array = [];
+		var {{custom_feed_title|remove_space}}_text_array = [];
 		var	counter_{{custom_feed_title|remove_space}} = 1;
         {% for entry in feed.entries|slice:max_feed_items %}
-			{{custom_feed_title|remove_space}}_array.push("{{entry.title|slugify}}")
-			$('.title').textfill({
-				explicitHeight: $('#{{entry.title|slugify}}').height(),
-				explicitWidth: $('#{{entry.title|slugify}}').width(),
+			{{custom_feed_title|remove_space}}_title_array.push("{{entry.title|slugify}}")
+			$("#{{entry.title|slugify}}").textfill({
+				explicitHeight: $("#{{entry.title|slugify}}").height(),
+				explicitWidth: $("#{{entry.title|slugify}}").width(),
 				minFontPixels: 25,
-				maxFontPixels: 35,
-				});
-        	$('.description').textfill({
+				fail: function(){ console.log('fail')},debug:true
+				})
+			{{custom_feed_title|remove_space}}_text_array.push("{{entry.title|slugify}}_text")
+        	$("#{{entry.title|slugify}}_text").textfill({
         		maxFontPixels: 20,
         		minFontPixels: 15,
-        		explicitWidth: $('#{{entry.title|slugify}}').width(),
-        		explicitHeight: $('#{{entry.title|slugify}}').height(),
-        	});
-			$('#{{entry.title|slugify}}').hide()
+        		explicitWidth: $('#{{entry.title|slugify}}_text').width(),
+        		explicitHeight: $('#{{entry.title|slugify}}_text').height(),
+        		})
+        	$("#{{entry.title|slugify}}").toggle();
+        	$("#{{entry.title|slugify}}_text").toggle();
 		{%endfor%}
+		function titleToggle() {
+			if (counter_{{custom_feed_title|remove_space}} == {{custom_feed_title|remove_space}}_title_array.length) 
+					{counter_{{custom_feed_title|remove_space}} = 0;};
+			$('#'+{{custom_feed_title|remove_space}}_title_array[counter_{{custom_feed_title|remove_space}}]).toggle();
+			textToggle();
+		}
+		function textToggle() {
+			$('#'+{{custom_feed_title|remove_space}}_text_array[counter_{{custom_feed_title|remove_space}}]).toggle();
+		setTimeout(function(){ 
+								$('#'+{{custom_feed_title|remove_space}}_title_array[counter_{{custom_feed_title|remove_space}}]).toggle();
+								$('#'+{{custom_feed_title|remove_space}}_text_array[counter_{{custom_feed_title|remove_space}}]).toggle();
+								counter_{{custom_feed_title|remove_space}} ++;titleToggle()}
+								, 30000);
+		}
 		
-
-		$('#'+{{custom_feed_title|remove_space}}_array[0]).fadeIn(50).delay(30000).fadeOut(50)
-		setInterval(liSwitcher, 30100);
-		function liSwitcher(){
-			if (counter_{{custom_feed_title|remove_space}} == {{custom_feed_title|remove_space}}_array.length) {counter_{{custom_feed_title|remove_space}} = 0;};
-			$('#'+{{custom_feed_title|remove_space}}_array[counter_{{custom_feed_title|remove_space}}]).fadeIn(50).delay(30000).fadeOut(50)
-			counter_{{custom_feed_title|remove_space}} ++;;
-			}
-
+		titleToggle();
 	});
 </script>

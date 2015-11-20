@@ -211,9 +211,9 @@ LOGOUT_URL = '/accounts/logout/'
 
 # localeurl locale independent paths (language code won't be appended)
 LOCALE_INDEPENDENT_PATHS = (
-    r'^/sitemap.*\.xml$', # Global regex for all XML sitemaps
+    #r'^/sitemap.*\.xml$', # Global regex for all XML sitemaps
     #r'^/administration/',
-    #r'^/dashboard/',
+    r'^/dashboard/',
 )
 
 # Tell localeurl to use sessions for language store.
